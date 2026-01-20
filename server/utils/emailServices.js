@@ -24,7 +24,7 @@ class EmailService{
         const mailOptions={
             from:process.env.SMTP_USER,
             to: email,
-            subject:"Password Reset Request",
+            subject:"Password Reset Requestg",
             html:`
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2>Password Reset Request</h2>

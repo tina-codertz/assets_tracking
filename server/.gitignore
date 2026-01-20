@@ -1,3 +1,7 @@
+.env.*
+coverage
+.cache
+
 # Logs
 logs
 *.log
@@ -22,8 +26,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-.env.*
-coverage
-.cache
-

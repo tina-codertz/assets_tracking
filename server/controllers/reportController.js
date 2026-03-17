@@ -83,6 +83,53 @@ class ReportController {
       res.status(500).json({ message: "Failed to fetch defaulters" });
     }
   }
+
+  static async pnl(req, res) {
+    try {
+      const from = req.query.from ? new Date(req.query.from) : new Date(Date.now() - 30 * 864e5);
+      const to = req.query.to ? new Date(req.query.to) : new Date();
+
+      const fromStr = from.toISOString().slice(0, 10);
+      const toStr = to.toISOString().slice(0, 10);
+
+      const [revenueRes, cogsRes, outstandingRes] = await Promise.all([
+        pool.query(
+          "SELECT COALESCE(SUM(amount),0) AS revenue FROM payments WHERE paid_on BETWEEN $1 AND $2",
+          [fromStr, toStr]
+        ),
+        pool.query(
+          `
+          SELECT COALESCE(SUM(a.initial_value),0) AS cogs
+          FROM asset_contracts ac
+          JOIN assets a ON a.id = ac.asset_id
+          WHERE ac.start_date BETWEEN $1 AND $2
+            AND ac.status <> 'cancelled'
+        `,
+          [fromStr, toStr]
+        ),
+        pool.query(
+          "SELECT COALESCE(SUM(allocated_amount - total_paid),0) AS outstanding_balance FROM asset_contracts WHERE status IN ('active','defaulted')"
+        ),
+      ]);
+
+      const revenue = Number(revenueRes.rows[0].revenue);
+      const cogs = Number(cogsRes.rows[0].cogs);
+      const gross_profit = revenue - cogs;
+      const outstanding_balance = Number(outstandingRes.rows[0].outstanding_balance);
+
+      res.json({
+        from: fromStr,
+        to: toStr,
+        revenue,
+        cogs,
+        gross_profit,
+        outstanding_balance,
+      });
+    } catch (error) {
+      console.error("P&L error:", error);
+      res.status(500).json({ message: "Failed to fetch P&L report" });
+    }
+  }
 }
 
 export default ReportController;

@@ -78,6 +78,7 @@ export const reportAPI = {
   weeklyReturns: () => axiosInstance.get("/reports/weekly-returns"),
   monthlyReturns: () => axiosInstance.get("/reports/monthly-returns"),
   defaulters: () => axiosInstance.get("/reports/defaulters"),
+  pnl: (params) => axiosInstance.get("/reports/pnl", { params }),
 };
 
 export default axiosInstance;

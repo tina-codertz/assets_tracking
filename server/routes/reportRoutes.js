@@ -9,6 +9,7 @@ router.get("/admin/summary", auth, role("admin"), ReportController.adminSummary)
 router.get("/weekly-returns", auth, role("admin", "manager"), ReportController.weeklyReturns);
 router.get("/monthly-returns", auth, role("admin", "manager"), ReportController.monthlyReturns);
 router.get("/defaulters", auth, role("admin", "manager"), ReportController.defaulters);
+router.get("/pnl", auth, role("admin", "manager"), ReportController.pnl);
 
 export default router;
 

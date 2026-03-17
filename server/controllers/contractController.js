@@ -1,4 +1,5 @@
 import AssetContract from "../models/AssetContract.js";
+import { addPeriods, toISODateString } from "../utils/dateUtils.js";
 
 class ContractController {
   static async create(req, res) {
@@ -6,10 +7,22 @@ class ContractController {
       const agent_id = req.user.id;
       const manager_id = req.body.manager_id || null;
 
+      const startDate = req.body.start_date ? new Date(req.body.start_date) : new Date();
+      const plan = req.body.installment_plan;
+      const duration = Number(req.body.duration_periods);
+
+      const nextDue = toISODateString(addPeriods(startDate, plan, 1));
+      const expectedEnd = Number.isFinite(duration)
+        ? toISODateString(addPeriods(startDate, plan, duration))
+        : null;
+
       const contract = await AssetContract.create({
         ...req.body,
         agent_id,
         manager_id,
+        start_date: toISODateString(startDate),
+        next_due_date: req.body.next_due_date || nextDue,
+        expected_end_date: req.body.expected_end_date || expectedEnd,
       });
 
       res.status(201).json({ contract });

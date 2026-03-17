@@ -89,6 +89,21 @@ class AssetContract {
     );
     return result.rows[0];
   }
+
+  static async updateSchedule(contractId, { next_due_date, expected_end_date, status }) {
+    const result = await pool.query(
+      `
+      UPDATE asset_contracts
+      SET next_due_date = COALESCE($2, next_due_date),
+          expected_end_date = COALESCE($3, expected_end_date),
+          status = COALESCE($4, status)
+      WHERE id = $1
+      RETURNING *
+    `,
+      [contractId, next_due_date, expected_end_date, status]
+    );
+    return result.rows[0];
+  }
 }
 
 export default AssetContract;

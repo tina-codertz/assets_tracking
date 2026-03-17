@@ -2,6 +2,11 @@ import express, { json, urlencoded } from 'express';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import assetRoutes from "./routes/assetRoutes.js";
+import customerRoutes from "./routes/customerRoutes.js";
+import contractRoutes from "./routes/contractRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
+import reportRoutes from "./routes/reportRoutes.js";
 
 const app = express();
 
@@ -13,6 +18,11 @@ app.use(urlencoded({ extended: true }));
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use("/api/assets", assetRoutes);
+app.use("/api/customers", customerRoutes);
+app.use("/api/contracts", contractRoutes);
+app.use("/api/payments", paymentRoutes);
+app.use("/api/reports", reportRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

@@ -25,11 +25,19 @@ export const AuthProvider = ({children}) =>{
         setLoading(false)
     },[]);
 
-
 const login = async (email, password) => {
   try {
     const response = await authAPI.login({ email, password });
-    const { user, token } = response.data;
+
+    // console.log("LOGIN RESPONSE:", response.data);
+
+    const data = response.data.data || response.data;
+    const token = data.token || data.accessToken;
+    const user = data.user;
+
+    if (!token || !user) {
+      throw new Error("Invalid login response");
+    }
 
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(user));
@@ -37,9 +45,10 @@ const login = async (email, password) => {
 
     return { success: true, user };
   } catch (error) {
+    console.error("LOGIN FAILED:", error.response || error);
     return {
       success: false,
-      error: error.response?.data?.message || "Login failed",
+      error: error.response?.data?.message || error.message || "Login failed",
     };
   }
 };

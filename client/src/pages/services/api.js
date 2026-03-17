@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:3000/api;"
+const API_BASE_URL = "http://localhost:3000/api/"
 
 const axiosInstance = axios.create({
     baseURL:API_BASE_URL,
@@ -39,15 +39,45 @@ axiosInstance.interceptors.response.use(
     }
 );
 
-export const authAPI ={
-    login:(credentials) => api.post("/auth", credentials),
-    forgotPassword:(email)=>api.post("/forgot-password",{email}),
-    resetPassword:(token,password) => api.post(`/reset-password/${token}`, {password}),
-    getProfile:() =>api.get("/auth/profile")
+export const authAPI = {
+  login: (credentials) => axiosInstance.post("/auth/login", credentials),
+  forgotPassword: (email) => axiosInstance.post("/auth/forgot-password", { email }),
+  resetPassword: (token, password) =>
+    axiosInstance.post(`/auth/reset-password/${token}`, { password }),
+  getProfile: () => axiosInstance.get("/auth/profile"),
 };
 
-export const userAPI ={
-    getAllUsers:()=> api.get("/users")
-}
+export const userAPI = {
+  getAllUsers: () => axiosInstance.get("/users"),
+};
+
+export const assetAPI = {
+  list: () => axiosInstance.get("/assets"),
+  create: (payload) => axiosInstance.post("/assets", payload),
+  update: (id, payload) => axiosInstance.put(`/assets/${id}`, payload),
+  remove: (id) => axiosInstance.delete(`/assets/${id}`),
+};
+
+export const customerAPI = {
+  list: () => axiosInstance.get("/customers"),
+  create: (payload) => axiosInstance.post("/customers", payload),
+};
+
+export const contractAPI = {
+  list: () => axiosInstance.get("/contracts"),
+  create: (payload) => axiosInstance.post("/contracts", payload),
+};
+
+export const paymentAPI = {
+  create: (payload) => axiosInstance.post("/payments", payload),
+  listByContract: (contractId) => axiosInstance.get(`/payments/contract/${contractId}`),
+};
+
+export const reportAPI = {
+  adminSummary: () => axiosInstance.get("/reports/admin/summary"),
+  weeklyReturns: () => axiosInstance.get("/reports/weekly-returns"),
+  monthlyReturns: () => axiosInstance.get("/reports/monthly-returns"),
+  defaulters: () => axiosInstance.get("/reports/defaulters"),
+};
 
 export default axiosInstance;

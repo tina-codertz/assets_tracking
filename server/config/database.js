@@ -16,10 +16,13 @@ const pool = new Pool({
   try {
     const client = await pool.connect();
     console.log(' Database connected successfully');
+    console.log("DB NAME:", process.env.DB_NAME);
     client.release();
   } catch (err) {
     console.error(' Database connection failed', err);
   }
 })();
+
+
 
 export default pool;

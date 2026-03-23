@@ -2,10 +2,14 @@ import TokenService from "../utils/tokenService.js";
 
 
 
-const auth = async (req,resizeBy,next) =>{
+const auth = async (req, res, next) => {
     try{
 
-        const token = req.header('Authorization')?.replace('Bearer',"");
+        const authHeader = req.header("Authorization");
+        // Expected format: "Bearer <token>"
+        const token = authHeader?.startsWith("Bearer ")
+          ? authHeader.slice("Bearer ".length)
+          : authHeader;
 
         if(!token){
             return res.status(401).json({message:'Authorization required'});

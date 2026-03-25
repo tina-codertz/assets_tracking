@@ -5,16 +5,16 @@ import { Toaster } from "react-hot-toast";
 import { Auth } from "./components/Auth";
 import ForgotPassword from "./components/ForgotPassword";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { DashboardLayout } from "./components/DashboardLayout";
+import { DashboardLayout } from "./components/SidebarLayout";
 
-import AdminDashboard from "./pages/Dashboard/AdminDashboard";
-import Agents from "./pages/Dashboard/Agents";
-import Manager from "./pages/Dashboard/Manager";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import Agents from "./pages/agents/Agents";
+import Manager from "./pages/managers/Manager";
 
 // Admin pages (to be added next)
 import AdminAssets from "./pages/Admin/Assets";
-import AdminUsers from "./pages/Admin/Users";
-import AdminReports from "./pages/Admin/Reports";
+import AdminUsers from "./pages/dashboard/Users";
+import AdminReports from "./pages/dashboard/Reports";
 
 const App = () => {
   const RenderDashboard = () => {

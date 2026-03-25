@@ -49,6 +49,7 @@ export const authAPI = {
 
 export const userAPI = {
   getAllUsers: () => axiosInstance.get("/users"),
+  getCurrentUser: () => axiosInstance.get("/auth/profile"),
 };
 
 export const assetAPI = {
@@ -70,6 +71,7 @@ export const contractAPI = {
 
 export const paymentAPI = {
   create: (payload) => axiosInstance.post("/payments", payload),
+  list: () => axiosInstance.get("/payments"),
   listByContract: (contractId) => axiosInstance.get(`/payments/contract/${contractId}`),
 };
 
@@ -80,5 +82,6 @@ export const reportAPI = {
   defaulters: () => axiosInstance.get("/reports/defaulters"),
   pnl: (params) => axiosInstance.get("/reports/pnl", { params }),
 };
+
 
 export default axiosInstance;

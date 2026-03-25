@@ -4,10 +4,12 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   BookCheck,
   ContainerIcon,
+  DollarSign,
   FileText,
   LayoutDashboard,
   LogOut,
   Menu,
+  MessageCircle,
   Package,
   Settings,
   ShieldCheck,
@@ -31,8 +33,8 @@ export const DashboardLayout = () => {
       { to: "dashboard", label: "Dashboard", icon: LayoutDashboard },
       { to: "clients", label: "Clients", icon: UserIcon },
       { to: "assets", label: "Assets", icon: Package },
-      { to: "payments", label: "Payments", icon: Package },
-      { to: "notifications", label: "Notifications", icon: Package },
+      { to: "payments", label: "Payments", icon: DollarSign },
+      { to: "notifications", label: "Notifications", icon: MessageCircle },
       { to: "reports", label: "Reports", icon: FileText },
       { to: "users", label: "Users", icon: UserIcon },
       { to: "settings", label: "Settings", icon: Settings },
@@ -40,17 +42,17 @@ export const DashboardLayout = () => {
     agent: [
       { to: "dashboard", label: "Dashboard", icon: BookCheck },
       { to: "clients", label: "Clients", icon: UserIcon },
-      { to: "assets", label: "Assets", icon: ContainerIcon },
-      { to: "payments", label: "Payments", icon: Package },
-      { to: "notifications", label: "Notifications", icon: Package },
+      { to: "assets", label: "Assets", icon: Package },
+      { to: "payments", label: "Payments", icon: DollarSign },
+      { to: "notifications", label: "Notifications", icon: MessageCircle },
 
     ],
     manager: [
       { to: "dashboard", label: "Dashboard", icon: LayoutDashboard },
       { to: "clients", label: "Agents & Performance", icon: SigmaSquare },
       { to: "assets", label: "Assets", icon: Package },
-      { to: "payments", label: "Payments", icon: Package },
-      { to: "notifications", label: "Notifications", icon: Package },
+      { to: "payments", label: "Payments", icon: DollarSign },
+      { to: "notifications", label: "Notifications", icon: MessageCircle },
       { to: "reports", label: "Reports", icon: FileText },
       { to: "settings", label: "Settings", icon: Settings },
     ],
@@ -59,7 +61,7 @@ export const DashboardLayout = () => {
   const items = user ? navItemsByRole[user.role] || [] : [];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+   <div className="h-screen bg-gray-50 flex overflow-hidden">
       
       {/*  Mobile Overlay */}
       {isOpen && (
@@ -70,11 +72,12 @@ export const DashboardLayout = () => {
       )}
 
       {/*  Sidebar */}
-      <aside
-        className={`fixed z-50 top-0 left-0 h-full w-64 bg-[#0f4c81] shadow-lg flex flex-col transform transition-transform duration-300
-        ${isOpen ? "translate-x-0" : "-translate-x-full"} 
-        lg:translate-x-0 lg:static`}
-      >
+     <aside
+  className={`fixed lg:static top-0 left-0 z-50 h-screen w-64 bg-[#0f4c81] shadow-lg flex flex-col
+  transform transition-transform duration-300
+  ${isOpen ? "translate-x-0" : "-translate-x-full"}
+  lg:translate-x-0`}
+>
         {/* Header */}
         <div className="px-6 py-6 border-b border-white/10 flex justify-between items-center">
           <h1 className="text-lg font-bold text-white">Asset Tracking</h1>

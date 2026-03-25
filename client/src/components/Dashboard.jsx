@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { TrendingUp, Users, Package, TriangleAlert, DollarSign, Calendar, Shield, UserCog, User } from 'lucide-react';
@@ -322,7 +321,7 @@ export function Dashboard({ userRole = 'admin' }) {
                 <YAxis stroke="#6b7280" />
                 <Tooltip 
                   contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
-                  formatter={(value: number) => `TZS ${value.toFixed(1)}M`}
+                  formatter={(value) => `TZS ${Number(value).toFixed(1)}M`}
                 />
                 <Legend />
                 <Line type="monotone" dataKey="expected" stroke="#0f4c81" strokeWidth={2} name="Expected" />
@@ -354,7 +353,7 @@ export function Dashboard({ userRole = 'admin' }) {
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value: number) => `${value}%`} />
+                <Tooltip formatter={(value) => `${Number(value)}%`} />
               </PieChart>
             </ResponsiveContainer>
             <div className="mt-4 grid grid-cols-3 gap-4">
@@ -387,7 +386,7 @@ export function Dashboard({ userRole = 'admin' }) {
                 <YAxis stroke="#6b7280" />
                 <Tooltip 
                   contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
-                  formatter={(value: number) => `TZS ${value.toFixed(0)}K`}
+                  formatter={(value) => `TZS ${Number(value).toFixed(0)}K`}
                 />
                 <Bar dataKey="amount" fill="#14b8a6" radius={[8, 8, 0, 0]} />
               </BarChart>
@@ -428,5 +427,4 @@ export function Dashboard({ userRole = 'admin' }) {
         </Card>
       </div>
     </div>
-  );
-}
+  );}

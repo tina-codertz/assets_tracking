@@ -6,7 +6,7 @@ function isoDate(d) {
   return new Date(d).toISOString().slice(0, 10);
 }
 
-const AdminReports = () => {
+const Reports = () => {
   const [loading, setLoading] = useState(true);
   const [pnl, setPnl] = useState(null);
   const [from, setFrom] = useState(() => isoDate(Date.now() - 30 * 24 * 60 * 60 * 1000));
@@ -110,5 +110,5 @@ const AdminReports = () => {
   );
 };
 
-export default AdminReports;
+export default Reports;
 

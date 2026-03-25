@@ -20,7 +20,7 @@ function numberOrNull(v) {
   return Number.isFinite(n) ? n : null;
 }
 
-const AdminAssets = () => {
+const Assets = () => {
   const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
@@ -398,5 +398,5 @@ const AdminAssets = () => {
   );
 };
 
-export default AdminAssets;
+export default Assets;
 
